@@ -11,9 +11,12 @@ jobs:
     - name: Install Terraform
       run: |
         echo Installing terraform
-        snap info terraform
-        sudo snap install terraform 
-    
+        sudo apt-get install unzip
+        wget https://releases.hashicorp.com/terraform/0.12.15/terraform_0.12.15_linux_amd64.zip
+        unzip terraform_0.12.15_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+        terraform --version
+
     - name: Terraform init
       env: 
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
