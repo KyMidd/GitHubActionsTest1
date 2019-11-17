@@ -13,7 +13,7 @@ jobs:
     - name: Install Terraform
       run: |
         echo Installing terraform
-        sudo apt-get -y install terraform
+        sudo snap install terraform
         
     - name: Terraform init
       run: terraform init
