@@ -7,6 +7,13 @@ terraform {
 provider "aws" {
   version = "~> 2.27.0"
   region  = "us-east-1"
+  backend "s3" {
+    bucket         = "cl-ue1-al-terraform-tfstate"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "aws-locks"
+    encrypt        = true
+  }
 }
 
 # Build the VPC
