@@ -1,9 +1,9 @@
-name: Terraform
+name: Terraform Apply
 
 on: [push]
 
 jobs:
-  terraform:
+  terraform_apply:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -29,12 +29,6 @@ jobs:
 
     - name: Terraform validation
       run: terraform validate
-
-    - name: Terraform plan
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform plan -input=false
 
     - name: Terraform apply
       env:
