@@ -12,11 +12,13 @@ jobs:
       env: 
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        secret: ${{ secrets.secret }}
         testthing: "stuff"
       run: |
         echo $AWS_ACCESS_KEY_ID
         echo $AWS_SECRET_ACCESS_KEY
         echo $testthing
+        echo $secret
 
     - name: Install Terraform
       run: |
