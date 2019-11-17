@@ -1,4 +1,4 @@
-name: CI
+name: Terraform Plan
 
 on: [push]
 
