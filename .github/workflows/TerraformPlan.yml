@@ -11,9 +11,15 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+    - name: Validate variables
+      run: |
+        echo $AWS_ACCESS_KEY_ID
+        echo $AWS_SECRET_ACCESS_KEY
+
     - name: Install Terraform
       run: |
         echo Installing terraform
+        sudo snap info terraform
         sudo snap install terraform 
     
     - name: Terraform init
