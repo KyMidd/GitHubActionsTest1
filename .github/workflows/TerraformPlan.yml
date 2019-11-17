@@ -1,0 +1,26 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+      
+    - name: Install Terraform
+      run: |
+        echo Installing terraform
+        apt-get -y install terraform
+        
+    - name: Terraform init
+      run: terraform init
+      
+    - name: Terraform validation
+      run: terraform validate
+    
+    - name: Terraform plan
+      run: terraform plan
+        
