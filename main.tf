@@ -1,19 +1,19 @@
 # Require TF version to most recent
 terraform {
   required_version = "~> 0.12.8"
+    backend "s3" {
+    bucket         = "kyler-github-actions-demo-terraform-tfstate"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "aws-locks"
+    encrypt        = true
+  }
 }
 
 # Download any stable version in AWS provider of 2.19.0 or higher in 2.19 train
 provider "aws" {
   version = "~> 2.27.0"
   region  = "us-east-1"
-  backend "s3" {
-    bucket         = "cl-ue1-al-terraform-tfstate"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "aws-locks"
-    encrypt        = true
-  }
 }
 
 # Build the VPC
