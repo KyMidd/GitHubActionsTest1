@@ -27,9 +27,6 @@ module "bootstrap" {
   aws_iam_policy_assume_name  = "GitHubActionsIamPolicyAssume"
 }
 
-
-/* Commented out until after bootstrap
-
 # Build the VPC
 resource "aws_vpc" "vpc" {
   cidr_block           = "10.1.0.0/16"
@@ -60,4 +57,3 @@ resource "aws_route_table" "route_table2" {
     Terraform = "true"
   }
 }
-*/
