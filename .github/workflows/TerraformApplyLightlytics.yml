@@ -1,0 +1,39 @@
+name: simulation
+on:
+  pull_request:
+jobs:
+  terraform-simulation:
+    runs-on: ubuntu-latest
+    name: Lightlytics
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_wrapper: false
+      - name: Verify Terraform version
+        run: terraform --version
+      - name: Terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: ./terraform
+          run: terraform init -input=false
+      - name: Terraform plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: ./terraform
+          run: terraform plan -lock=false -out ./terraform.plan
+      - name: Terraform show
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          working-directory: ./terraform
+          run: terraform show -json ./terraform.plan > ./plan.json
+      - uses: lightlytics/publisher@v1.1
+        id: ll-publisher
+        with:
+          plan-json: ./terraform/plan.json
+          ll-hostname: capgemini.lightlytics.com
+          collection-token: ${{ secrets.LIGHTLYTICS_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
